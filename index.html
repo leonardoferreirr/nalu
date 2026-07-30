@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nalu — Poke com alma tropical</title>
+  <meta name="description" content="Pokes frescos, coloridos e cheios de sabor. Cinco ondas autorais ou monte do seu jeito." />
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:title" content="Nalu — Poke com alma tropical" />
+  <meta property="og:description" content="Pokes frescos, coloridos e cheios de sabor. Cinco ondas autorais ou monte do seu jeito." />
+  <meta property="og:image" content="assets/img/poke-hilo.webp" />
+  <link rel="preload" href="assets/fonts/fraunces-italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/img/poke-hilo-sm.webp" as="image" fetchpriority="high" media="(max-width: 640px)" />
+  <link rel="preload" href="assets/img/poke-hilo.webp" as="image" fetchpriority="high" media="(min-width: 641px)" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__circle"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="topbar" id="topbar">
+    <a href="#hero" class="topbar__brand" aria-label="Nalu — voltar ao topo">
+      <img src="assets/img/logo-nalu.svg" alt="Nalu" width="86" height="30" />
+    </a>
+    <a href="#pedir" class="topbar__cta">Pedir agora</a>
+  </header>
+
+  <!-- DOCK NAV (pill fixo na base) -->
+  <nav class="dock" aria-label="Principal">
+    <a href="#sabores" data-dock>Sabores</a>
+    <a href="#monte" data-dock>Monte o seu</a>
+    <a href="#sobre" data-dock>Sobre</a>
+    <a href="#pedir" class="dock__cta" data-dock>Pedir</a>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="hero" data-bg="#FF6A00">
+      <h1 class="hero__title">
+        <span class="hero__line hero__line--1">Onda boa,</span>
+        <span class="hero__line hero__line--2">sabor <em>de verdade</em>.</span>
+      </h1>
+
+      <div class="hero__scene" id="heroScene">
+        <img class="hero__bowl" src="assets/img/poke-hilo.webp" srcset="assets/img/poke-hilo-sm.webp 480w, assets/img/poke-hilo.webp 760w" sizes="(max-width: 640px) 88vw, 50vh" alt="Poke Hilo visto de cima" width="760" height="760" fetchpriority="high" />
+        <img class="fl" loading="lazy" fetchpriority="low" data-depth="1.6" data-f="-12" src="assets/ingredients/salmon.webp" alt="" style="--x:-14%; --y:6%; --s:1.05; --r:-14deg" />
+        <img class="fl" loading="lazy" fetchpriority="low" data-depth="0.9" data-f="10" src="assets/ingredients/cucumber.webp" alt="" style="--x:96%; --y:2%; --s:0.72; --r:12deg" />
+        <img class="fl" loading="lazy" fetchpriority="low" data-depth="1.2" data-f="-8" src="assets/ingredients/onion.webp" alt="" style="--x:104%; --y:52%; --s:0.78; --r:-8deg" />
+        <img class="fl" loading="lazy" fetchpriority="low" data-depth="0.7" data-f="14" src="assets/ingredients/mango.webp" alt="" style="--x:-16%; --y:56%; --s:0.7; --r:18deg" />
+        <img class="fl" loading="lazy" fetchpriority="low" data-depth="1.4" data-f="-16" src="assets/ingredients/avocado.webp" alt="" style="--x:88%; --y:88%; --s:0.82; --r:-20deg" />
+        <img class="fl" loading="lazy" fetchpriority="low" data-depth="1.0" data-f="12" src="assets/ingredients/tomato.webp" alt="" style="--x:2%; --y:92%; --s:0.58; --r:8deg" />
+      </div>
+
+    </section>
+
+    <!-- MUNDOS DE SABOR -->
+    <section class="waves" id="sabores" data-bg="#B6FF00" data-light="1">
+      <h2 class="sr-only">Nossos sabores</h2>
+
+      <div class="waves__stage" id="wavesStage">
+        <div class="waves__bigname" aria-hidden="true" id="waveName">HILO</div>
+
+        <div class="waves__center">
+          <button class="waves__arrow" id="wavePrev" aria-label="Sabor anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+
+          <div class="waves__bowlwrap" id="bowlWrap">
+            <div class="waves__bowl" data-wave="0"><img src="assets/img/poke-waikiki.webp" alt="Poke Waikiki" width="760" height="760" loading="lazy" /></div>
+            <div class="waves__bowl" data-wave="1"><img src="assets/img/poke-maui.webp" alt="Poke Maui" width="760" height="760" loading="lazy" /></div>
+            <div class="waves__bowl" data-wave="2"><img src="assets/img/poke-oahu.webp" alt="Poke Oahu" width="760" height="760" loading="lazy" /></div>
+            <div class="waves__bowl" data-wave="3"><img src="assets/img/poke-kona.webp" alt="Poke Kona" width="760" height="760" loading="lazy" /></div>
+            <div class="waves__bowl is-active" data-wave="4"><img src="assets/img/poke-hilo.webp" alt="Poke Hilo" width="760" height="760" /></div>
+            <div class="waves__orbit" id="waveOrbit" aria-hidden="true"></div>
+          </div>
+
+          <button class="waves__arrow" id="waveNext" aria-label="Próximo sabor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+
+        <div class="waves__dots" role="tablist" id="waveDots"></div>
+
+        <div class="waves__info">
+          <p class="waves__ingredients" id="waveIngredients">Repolho roxo, mix de folhas, pepino, tomate cereja, cenoura, couve crispy, palha de nori, ceviche, castanha-de-caju, cebolinha, gergelim, cebola roxa e gengibre.</p>
+          <div class="waves__buy">
+            <span class="waves__price"><small>a partir de</small> <strong id="wavePrice">R$ 51</strong></span>
+            <a href="#pedir" class="btn-wave" id="waveCta">Pedir essa onda</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WORD LIST (ingredientes sobem no scroll) -->
+    <section class="words" id="frescor" data-bg="#FFF7E8">
+      <div class="words__inner">
+        <p class="words__intro">Montado na hora, todo dia:</p>
+        <h2 class="words__list">
+          <span class="w">Salmão.</span>
+          <span class="w">Manga.</span>
+          <span class="w">Shimeji.</span>
+          <span class="w">Abacate.</span>
+          <span class="w">Sunomono.</span>
+          <span class="w">Gergelim.</span>
+        </h2>
+        <div class="words__floaters" aria-hidden="true">
+          <img class="wf" data-speed="0.35" src="assets/ingredients/salmon.webp" alt="" style="--x:8%; --r:-12deg; --s:0.9" />
+          <img class="wf" data-speed="0.55" src="assets/ingredients/mango.webp" alt="" style="--x:78%; --r:14deg; --s:0.7" />
+          <img class="wf" data-speed="0.42" src="assets/ingredients/shimeji.webp" alt="" style="--x:60%; --r:-6deg; --s:0.8" />
+          <img class="wf" data-speed="0.65" src="assets/ingredients/avocado.webp" alt="" style="--x:26%; --r:10deg; --s:0.65" />
+          <img class="wf" data-speed="0.5" src="assets/ingredients/cucumber.webp" alt="" style="--x:88%; --r:-16deg; --s:0.55" />
+          <img class="wf" data-speed="0.3" src="assets/ingredients/edamame.webp" alt="" style="--x:42%; --r:20deg; --s:0.6" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MONTE SEU POKE -->
+    <section class="build" id="monte" data-bg="#FFF7E8">
+      <img class="side-fl" data-speed="0.3" src="assets/ingredients/chips.webp" alt="" style="--x:-30px; --y:14%; --s:0.85; --r:-18deg" />
+      <img class="side-fl" data-speed="0.5" src="assets/ingredients/edamame.webp" alt="" style="--x:calc(100vw - 90px); --y:52%; --s:0.7; --r:14deg" />
+      <h2 class="section-title">Ou monte <em>a sua onda</em>.</h2>
+      <p class="section-sub">Quatro passos e o bowl é seu, do seu jeito.</p>
+      <div class="build__grid">
+        <article class="bstep" style="--tilt:-2deg">
+          <span class="bstep__num">1</span>
+          <h3>Escolha a base</h3>
+          <p>Arroz japonês, quinoa, espaguete de pupunha ou de abobrinha, mix de folhas.</p>
+        </article>
+        <article class="bstep" style="--tilt:1.6deg">
+          <span class="bstep__num">2</span>
+          <h3>A proteína</h3>
+          <p>Salmão fresco, salmão com cream cheese, frango lemon pepper ou ceviche.</p>
+        </article>
+        <article class="bstep" style="--tilt:-1.4deg">
+          <span class="bstep__num">3</span>
+          <h3>Os toppings</h3>
+          <p>Manga, abacate, sunomono, shimeji, edamame, tomate cereja, cebola roxa e mais.</p>
+        </article>
+        <article class="bstep" style="--tilt:2.2deg">
+          <span class="bstep__num">4</span>
+          <h3>A finalização</h3>
+          <p>Chips de batata-doce, couve crispy, castanhas, gergelim e molhos da casa.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre" data-bg="#FFE1C4">
+      <div class="about__bg" aria-hidden="true">
+        <img src="assets/img/ana-bg.webp" alt="" loading="lazy" width="1600" height="900" />
+      </div>
+      <div class="about__inner">
+        <div class="about__gallery" aria-hidden="true">
+          <figure class="pol pol--1"><img src="assets/img/poke-waikiki.webp" alt="" loading="lazy" width="400" height="400" /><figcaption>waikiki salmon</figcaption></figure>
+          <figure class="pol pol--2"><img src="assets/img/poke-maui.webp" alt="" loading="lazy" width="400" height="400" /><figcaption>maui tropical</figcaption></figure>
+          <figure class="pol pol--3"><img src="assets/img/poke-oahu.webp" alt="" loading="lazy" width="400" height="400" /><figcaption>oahu fit</figcaption></figure>
+          <figure class="pol pol--4"><img src="assets/img/poke-kona.webp" alt="" loading="lazy" width="400" height="400" /><figcaption>kona fresh</figcaption></figure>
+          <figure class="pol pol--5"><img src="assets/img/poke-hilo.webp" alt="" loading="lazy" width="400" height="400" /><figcaption>hilo ceviche</figcaption></figure>
+        </div>
+        <div class="about__copy">
+          <h2 class="section-title">Onda boa,<br /><em>desde a primeira</em>.</h2>
+          <p>O <strong>Nalu</strong> nasceu do apelido de Ana Luiza, sua fundadora, e da palavra havaiana <em>nalu</em>, que significa onda.</p>
+          <p>A marca carrega essa energia em tudo: pokes frescos, coloridos, tropicais e cheios de sabor. Cada bowl é pensado para trazer leveza, equilíbrio e aquela sensação boa de comida feita com cuidado.</p>
+          <p class="about__pull">No Nalu, comer bem é simples, gostoso e vibrante.</p>
+          <p class="about__sign">Ana Luiza</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS — [A PREENCHER: trocar por avaliações reais do iFood/Google antes de publicar] -->
+    <section class="reviews" data-bg="#0077B6">
+      <div class="reviews__bigword" aria-hidden="true">ONDAS<br />BOAS</div>
+      <div class="reviews__grid">
+        <blockquote class="rev" style="--tilt:-1.5deg">
+          <p>"O melhor poke da cidade, sem discussão. O Waikiki é um absurdo de bom."</p>
+          <cite>Marina C.</cite>
+        </blockquote>
+        <blockquote class="rev" style="--tilt:1.2deg">
+          <p>"Fresco de verdade. Dá pra sentir que foi montado na hora, todo ingrediente vivo."</p>
+          <cite>Pedro A.</cite>
+        </blockquote>
+        <blockquote class="rev" style="--tilt:-0.8deg">
+          <p>"Peço toda semana. O de ceviche é surreal e a embalagem chega impecável."</p>
+          <cite>Júlia F.</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- PEDIR -->
+    <section class="order" id="pedir" data-bg="#FF6A00">
+      <img class="side-fl" data-speed="0.36" src="assets/ingredients/salmon.webp" alt="" style="--x:-40px; --y:18%; --s:1; --r:12deg" />
+      <img class="side-fl" data-speed="0.55" src="assets/ingredients/avocado.webp" alt="" style="--x:calc(100vw - 100px); --y:60%; --s:0.75; --r:-14deg" />
+      <h2 class="section-title section-title--light">Bateu a fome?<br /><em>Pega essa onda.</em></h2>
+      <div class="order__cards">
+        <div class="ocard">
+          <h3>Delivery</h3>
+          <p>Peça pelo WhatsApp ou iFood e receba em casa, fresquinho.</p>
+          <a class="ocard__btn" href="https://wa.me/5500000000000?text=Oi!%20Quero%20pedir%20um%20poke%20%F0%9F%8C%8A" target="_blank" rel="noopener">Pedir no WhatsApp</a>
+        </div>
+        <div class="ocard">
+          <h3>Retirada</h3>
+          <p>[A PREENCHER: endereço da loja]<br />Seg a Sáb · 11h às 22h</p>
+          <a class="ocard__btn ocard__btn--ghost" href="#" rel="noopener">Ver no mapa</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-bg="#FF6A00">
+    <div class="footer__top">
+      <div class="footer__links">
+        <a href="#sabores">Sabores</a>
+        <a href="#monte">Monte o seu</a>
+        <a href="#sobre">Sobre</a>
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <p class="footer__copy">© 2026 Nalu Poke. Todos os direitos reservados.</p>
+    </div>
+    <svg class="footer__logotype" aria-hidden="true" viewBox="0 0 1000 240" preserveAspectRatio="none">
+      <text x="500" y="228" text-anchor="middle" textLength="1010" lengthAdjust="spacingAndGlyphs">NALU</text>
+    </svg>
+  </footer>
+
+  <script src="scripts/main.js" defer></script>
+</body>
+</html>
