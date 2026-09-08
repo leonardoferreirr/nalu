@@ -192,8 +192,13 @@ Isto não é visual, mas está publicado e é o mais urgente da lista.
 Fora da lista de defeitos, a pedido: os quatro cards de "Monte o seu" ganharam as
 cores dos sabores, do quente para o frio (Maui `#FFC400`, Hilo `#B6FF00`, Kona
 `#00D6A3`, Oahu `#00B8D9`), com o numeral invertido para preto sobre branco.
-Contraste de 5,33:1 a 15,02:1, todos acima do mínimo. E o segundo parágrafo do
-bloco Sobre saiu, o que deixou a seção com origem, frase de efeito e assinatura.
+Contraste de 5,33:1 a 15,02:1, todos acima do mínimo.
+
+O bloco Sobre foi reduzido à frase. Saíram o título "Onda boa, desde a primeira" e
+os dois parágrafos; ficaram só a citação e a assinatura da Ana Luiza. A citação
+cresceu de 1,25rem fixo para `clamp(1.35rem, .9rem + 1.9vw, 2.35rem)`, porque
+agora ela carrega a seção sozinha. Duas regras de CSS que apontavam para o título
+removido foram apagadas junto.
 
 ## 6. O que falta, na ordem
 
