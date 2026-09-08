@@ -29,7 +29,7 @@ No desktop as duas viewports são iguais, por isso nunca deu problema lá.
 `bottom` como caminho de retorno para quem não tem `dvh`. Medido depois:
 785–832, dentro dos 844.
 
-### 1.2 Os ingredientes decorativos cobrem texto
+### 1.2 Os ingredientes decorativos cobrem texto · CORRIGIDO
 Sete colisões medidas. A causa é uma só: `.side-fl` e `.fl` têm `z-index:1` e os
 cards e títulos ficam em `z-index:auto`, no mesmo contexto de empilhamento. A
 decoração ganha.
@@ -44,6 +44,11 @@ decoração ganha.
 
 O caso mais visível: na seção de pedido, o salmão cobre o **P** de "Pega", e a
 frase passa a ler "EGA ESSA ONDA".
+
+**Correção aplicada:** em vez de mexer na camada da decoração, subi o conteúdo.
+`position:relative; z-index:2` em `.build__grid`, `.order__cards`,
+`.section-title` e `.section-sub`. As sete colisões foram para zero de uma vez, e
+os ingredientes continuam aparecendo, agora por trás. Medido depois: 0 colisões.
 
 ### 1.3 A barra do topo passa por cima do conteúdo
 `.topbar` é `position:fixed`, tem 73px de altura e **fundo transparente**. Ela não
@@ -180,15 +185,21 @@ Isto não é visual, mas está publicado e é o mais urgente da lista.
 ## 5. Já corrigido
 
 - 1.1 dock ancorado em `100dvh`
+- 1.2 conteúdo acima da decoração, sete colisões zeradas
 - 1.5 galeria de polaroids com largura explícita
 - 1.6 onda com largura suficiente para fechar o ciclo
+
+Fora da lista de defeitos, a pedido: os quatro cards de "Monte o seu" ganharam as
+cores dos sabores, do quente para o frio (Maui `#FFC400`, Hilo `#B6FF00`, Kona
+`#00D6A3`, Oahu `#00B8D9`), com o numeral invertido para preto sobre branco.
+Contraste de 5,33:1 a 15,02:1, todos acima do mínimo. E o segundo parágrafo do
+bloco Sobre saiu, o que deixou a seção com origem, frase de efeito e assinatura.
 
 ## 6. O que falta, na ordem
 
 1. Tirar do ar o que é falso ou vazio: depoimentos, endereço, WhatsApp, mapa,
    Instagram. É o único item da lista que expõe o cliente.
-2. Colocar a decoração atrás do conteúdo, com `z-index` negativo ou um contexto
-   próprio, e conter o estouro horizontal na origem.
+2. Conter o estouro horizontal de 31px na origem.
 3. Dar fundo à barra do topo ao rolar, ou soltá-la.
 4. Resolver o contraste, decidindo antes a regra do texto sobre laranja.
 5. Ajustar o recuo do bloco de depoimentos e a quebra das pills de sabor.
