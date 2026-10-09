@@ -269,6 +269,13 @@
   window.addEventListener('scroll', applyBgFromScroll, { passive: true });
   applyBgFromScroll(true);
 
+  /* o vidro da barra do topo só entra depois que a página sai do hero */
+  function topbarGlass() {
+    document.body.classList.toggle('is-scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', topbarGlass, { passive: true });
+  topbarGlass();
+
   /* ================= WORDS: letras + ingredientes no scroll ================= */
   var wordEls = [].slice.call(document.querySelectorAll('.words__list .w'));
   wordEls.forEach(function (w, i) { w.style.transitionDelay = (i * 0.09) + 's'; });
@@ -315,25 +322,31 @@
 
   /* ================= DOCK ATIVO ================= */
   var dockLinks = [].slice.call(document.querySelectorAll('[data-dock]'));
+  /* uma lista por seção: o mesmo destino existe no topo e na barra de baixo,
+     e só uma das duas está visível de cada vez */
   var dockMap = {};
   dockLinks.forEach(function (a) {
     var id = a.getAttribute('href').slice(1);
-    dockMap[id] = a;
+    (dockMap[id] = dockMap[id] || []).push(a);
   });
-  var dockObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      var link = dockMap[en.target.id];
-      if (!link) return;
-      if (en.isIntersecting) {
-        dockLinks.forEach(function (a) { a.classList.remove('is-active'); });
-        link.classList.add('is-active');
-      }
-    });
-  }, { threshold: 0.4 });
-  ['sabores', 'monte', 'sobre', 'pedir'].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) dockObserver.observe(el);
-  });
+  /* qual seção cruza o meio da tela, pelo mesmo critério da cor de fundo.
+     Um IntersectionObserver com threshold fixo não serve aqui: a seção de
+     sabores tem cinco telas de altura e nunca chegaria a 40% visível, então
+     ela jamais acendia no menu. */
+  var dockIds = ['sabores', 'monte', 'sobre', 'pedir'];
+  function markActive() {
+    var mid = window.innerHeight * 0.5, ativo = null;
+    for (var i = 0; i < dockIds.length; i++) {
+      var el = document.getElementById(dockIds[i]);
+      if (!el) continue;
+      var r = el.getBoundingClientRect();
+      if (r.top <= mid && r.bottom >= mid) { ativo = dockIds[i]; break; }
+    }
+    dockLinks.forEach(function (a) { a.classList.remove('is-active'); });
+    if (ativo && dockMap[ativo]) dockMap[ativo].forEach(function (a) { a.classList.add('is-active'); });
+  }
+  window.addEventListener('scroll', markActive, { passive: true });
+  markActive();
 
   /* ================= TOPPINGS LATERAIS (drift no scroll) ================= */
   var sideFls = [].slice.call(document.querySelectorAll('.side-fl'));
