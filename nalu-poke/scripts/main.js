@@ -165,6 +165,7 @@
 
     wavesSection.dataset.bg = wave.bg;
     wavesSection.dataset.light = wave.light ? '1' : '';
+    syncSectionColors();   /* o bloco da seção e a onda da seguinte seguem o sabor */
     applyBgFromScroll(true);
     buildOrbit(wave);
   }
@@ -204,6 +205,17 @@
   /* ================= COR DE FUNDO POR SCROLL ================= */
   var bgSections = [].slice.call(document.querySelectorAll('[data-bg]'));
   var lastBg = '';
+  /* Cada seção pinta o próprio bloco (--sec) e a onda do seu topo recebe a cor
+     de quem termina (--sec-prev), que é o que faz a seção anterior escorrer
+     para dentro da seguinte. O body continua acompanhando, mas a partir daqui
+     só aparece no overscroll. */
+  function syncSectionColors() {
+    bgSections.forEach(function (s, i) {
+      s.style.setProperty('--sec', s.dataset.bg);
+      s.style.setProperty('--sec-prev', i ? bgSections[i - 1].dataset.bg : s.dataset.bg);
+    });
+  }
+  syncSectionColors();
   function applyBgFromScroll(force) {
     var mid = window.innerHeight * 0.5;
     var active = null;
