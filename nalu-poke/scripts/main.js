@@ -18,6 +18,10 @@
   }
   setTimeout(heroIn, 1600);
 
+  /* As seções com cor são lidas aqui em cima: o carrossel pinta a seção dele
+     durante a montagem, antes de a parte de cor deste arquivo executar. */
+  var bgSections = [].slice.call(document.querySelectorAll('[data-bg]'));
+
   /* ================= DADOS DAS ONDAS ================= */
   var ING = 'assets/ingredients/';
   var WAVES = [
@@ -111,8 +115,11 @@
   var ingEl = document.getElementById('waveIngredients');
   var orbitEl = document.getElementById('waveOrbit');
   var dotsEl = document.getElementById('waveDots');
+  var noEl = document.getElementById('waveNo');
   var current = 4;
   var autoTimer = null;
+  /* no desktop quem conduz a coleção é o scroll, não um timer */
+  var scrollDriven = window.matchMedia('(min-width: 1025px)').matches && !reduced;
 
   WAVES.forEach(function (w, i) {
     var b = document.createElement('button');
@@ -120,7 +127,10 @@
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-label', w.name);
     if (i === 4) b.classList.add('is-active');
-    b.addEventListener('click', function () { goTo(i); restartAuto(); });
+    b.addEventListener('click', function () {
+      if (scrollDriven) { scrollToWave(i); return; }   /* no modo scroll, o chip leva até a faixa do sabor */
+      goTo(i); restartAuto();
+    });
     dotsEl.appendChild(b);
   });
   var dots = [].slice.call(dotsEl.children);
@@ -159,6 +169,7 @@
       bigName.textContent = wave.name;
       ingEl.textContent = wave.ingredients;
       priceEl.textContent = wave.price;
+      if (noEl) noEl.textContent = 'No. ' + ('0' + (current + 1)).slice(-2);
       bigName.classList.remove('is-swapping');
       ingEl.classList.remove('is-swapping');
     }, 320);
@@ -186,10 +197,33 @@
     swipeX = null;
   }, { passive: true });
 
+  /* ---- o scroll percorre os cinco sabores (desktop) ----
+     A seção tem cinco telas de altura e o palco fica preso no topo: cada faixa
+     de scroll é um sabor, e trocar de sabor troca também a cor da seção. */
+  function waveTrack() {
+    var r = wavesSection.getBoundingClientRect();
+    var rolavel = r.height - window.innerHeight;
+    if (rolavel <= 0) return;
+    var p = Math.min(0.9999, Math.max(0, -r.top / rolavel));
+    var i = Math.floor(p * WAVES.length);
+    if (i !== current) goTo(i);
+  }
+  function scrollToWave(i) {
+    var r = wavesSection.getBoundingClientRect();
+    var rolavel = r.height - window.innerHeight;
+    window.scrollTo({ top: r.top + window.scrollY + ((i + 0.5) / WAVES.length) * rolavel, behavior: 'smooth' });
+  }
+  if (scrollDriven) {
+    document.body.classList.add('waves-scroll');
+    window.addEventListener('scroll', waveTrack, { passive: true });
+    window.addEventListener('resize', waveTrack);
+    waveTrack();
+  }
+
   var wavesVisible = false;
   function restartAuto() {
     if (autoTimer) clearInterval(autoTimer);
-    if (!wavesVisible || reduced) return;
+    if (!wavesVisible || reduced || scrollDriven) return;
     autoTimer = setInterval(function () { goTo(current + 1); }, 7000);
   }
   new IntersectionObserver(function (entries) {
@@ -203,7 +237,6 @@
   buildOrbit(WAVES[4]);
 
   /* ================= COR DE FUNDO POR SCROLL ================= */
-  var bgSections = [].slice.call(document.querySelectorAll('[data-bg]'));
   var lastBg = '';
   /* Cada seção pinta o próprio bloco (--sec) e a onda do seu topo recebe a cor
      de quem termina (--sec-prev), que é o que faz a seção anterior escorrer
